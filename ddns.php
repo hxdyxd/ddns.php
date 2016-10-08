@@ -37,7 +37,7 @@ function get_public_ip(){
 
 function set_public_ip($ip){
 	global $public_config,$record_id;
-	$set = json_decode(http_post('https://dnsapi.cn/Record.Modify', $public_config.'&domain=sococo.ml&record_id='.$record_id.'&sub_domain=gxnu&record_type=A&record_line=默认&value='.$ip), true);
+	$set = json_decode(http_post('https://dnsapi.cn/Record.Modify', $public_config.'&domain='.$domain.'&record_id='.$record_id.'&sub_domain=gxnu&record_type=A&record_line=默认&value='.$ip), true);
 	if($set['status']['code']=='1'){
 		return true;
 	}else{
@@ -46,7 +46,7 @@ function set_public_ip($ip){
 	}
 }
 
-$record_id = json_decode(http_post('https://dnsapi.cn/Record.List', $public_config.'&domain=sococo.ml&sub_domain=gxnu'), true);
+$record_id = json_decode(http_post('https://dnsapi.cn/Record.List', $public_config.'&domain='.$domain.'&sub_domain='.$host), true);
 if($record_id){
 	if($record_id['status']['code']=='1'){
 		$least_ip = $record_id['records'][0]['value'];
